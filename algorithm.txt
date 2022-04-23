@@ -1,0 +1,13 @@
+1. tentukan nilai batas bawah (xl) dan nilai batas atas (xu) sebagai nilai terkaan akar persamaan. Dimana harus memenuhi f(xl)*f(xr) < 0
+2. hitung akar persamaman xr=(xl+xu) / 2
+Periksa : 
+
+jika f(xr) * f(xl) < 0, maka xu = xr dan kembali ke langkah 2
+
+jika f(xr) * f(xl) > 0, maka xl = xr dan kembali ke langkah 2
+
+jika f(xr) * f(xl) = 0, maka akar persamaan, xr ditemukan dan perhitungan berhenti
+
+setiap kali algoritma dijalankan, yaitu langkah 2 dan 3, maka hal tersebut disebut sebagai satu iterasi
+
+dalam melakukan perhitungan atau komputasi dnegan metode numerik, maka algoritma harus dijalankan dalam sejumlah iterasi, yang umumnya dengan jumlah yang cukup besar
