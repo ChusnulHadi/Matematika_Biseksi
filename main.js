@@ -1,5 +1,42 @@
 "use strict";
 
+const errorRate = (lama, baru) => {
+    return Math.abs((lama - baru) / lama) * 100
+}
+
+const print = (errorRate, objectValue) => {
+    console.log("Persamaan : " + objectValue.persamaan);
+    console.log("Error : " + errorRate + "%");
+    console.log("Fungsi Persamaan : " + objectValue.functionPersamaan);
+    console.log(" ");
+}
+
+const csvConvert = (result) => {
+    const csv = [
+        [
+
+            "Batas Bawah",
+            "Batas Atas",
+            "Persamaan",
+            "Fungsi Batas Bawah",
+            "Fungsi Batas Atas",
+            "Fungsi Persamaan"
+        ],
+        ...result.map(item => [
+            item.batasBawah,
+            item.batasAtas,
+            item.persamaan,
+            item.functionBatasBawah,
+            item.functionBatasAtas,
+            item.functionPersamaan
+        ])
+    ]
+        .map(e => e.join(","))
+        .join("\n");
+
+    return csv;
+}
+
 const main = () => {
     //memanggil fungsi untuk handling file
     const fs = require('fs')
@@ -69,13 +106,10 @@ const main = () => {
         divider = valueOf.functionPersamaan * valueOf.functionBatasBawah;
 
         //operasi untuk menghitung tingkat error
-        presicion = (xrbaru - xrlama) / xrbaru * 100;
+        presicion = errorRate(xrlama, xrbaru);
 
         //menulis log untuk setiap iterasi yang dilakukan
-        console.log("Persamaan : " + valueOf.persamaan);
-        console.log("Error : " + Math.abs(presicion) + "%");
-        console.log("Fungsi Persamaan : " + valueOf.functionPersamaan);
-        console.log(" ");
+        print(presicion, valueOf);
 
         //menambahkan hasil operasi ke array
         result.push(valueOf);
@@ -93,27 +127,7 @@ const main = () => {
     console.log("Error : " + Math.abs(presicion) + "%");
 
     // melakukan operasi untuk mengubah hasil perhitungan menjadi lebih mudah dibaca
-    const csvString = [
-        [
-
-            "Batas Bawah",
-            "Batas Atas",
-            "Persamaan",
-            "Fungsi Batas Bawah",
-            "Fungsi Batas Atas",
-            "Fungsi Persamaan"
-        ],
-        ...result.map(item => [
-            item.batasBawah,
-            item.batasAtas,
-            item.persamaan,
-            item.functionBatasBawah,
-            item.functionBatasAtas,
-            item.functionPersamaan
-        ])
-    ]
-        .map(e => e.join(","))
-        .join("\n");
+    const csvString = csvConvert(result);
 
     //menulis hasil operasi ke dalam file result.csv
     fs.writeFile('result.csv', csvString, err => {
