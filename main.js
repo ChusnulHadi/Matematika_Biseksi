@@ -37,15 +37,15 @@ const csvConvert = (result) => {
     return csv;
 }
 
+//memanggil fungsi untuk handling file
+const fs = require('fs')
+
+//fungsi untuk menemukan
+const f = (value) => {
+    return (667.38 / value) * (1 - value ** (-0.146843 * value)) - 40;
+}
+
 const main = () => {
-    //memanggil fungsi untuk handling file
-    const fs = require('fs')
-
-    //fungsi untuk menemukan
-    const f = (value) => {
-        return (667.38 / value) * (1 - value ** (-0.146843 * value)) - 40;
-    }
-
     //inisialisasi nilai yang akan dicari
     let xu = 12;
     let xl = 10;
